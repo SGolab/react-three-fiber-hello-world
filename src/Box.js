@@ -1,6 +1,6 @@
 import React, {useRef, useState} from 'react'
 
-function Box({position, rotationX, rotationY}) {
+function Box({position, rotation}) {
 
     const mesh = useRef();
 
@@ -13,8 +13,8 @@ function Box({position, rotationX, rotationY}) {
 
             ref={mesh}
 
-            rotation-x={rotationY}
-            rotation-y={rotationX}
+            rotation-x={rotation.y}
+            rotation-y={rotation.x}
 
             scale={active ? 2 : 1}
 
