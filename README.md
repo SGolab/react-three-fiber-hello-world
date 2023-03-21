@@ -1,3 +1,18 @@
+
+how to run this app:
+- install node.js and npm on your machine (https://nodejs.org/en/download)
+- download zip and unpack it
+- run 'npm install' in the downloaded directory
+- run 'npm start'
+- open browser and navigate to the address displayed by the console (by default 'localhost:3000')
+- voila!
+
+I have been working with macOS using Webstorm IDE from JetBrains
+npm - 9.2.0
+node.js - v18.12.1
+macos - Monterey 12.6
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
