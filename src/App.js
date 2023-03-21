@@ -1,6 +1,7 @@
 import Box from "./Box";
 import {Canvas} from "@react-three/fiber";
 import React, {useRef, useState} from "react";
+import Wagon from "./Wagon";
 
 function App() {
 
@@ -12,10 +13,13 @@ function App() {
             setRotationX(prev => prev + (e.deltaX / 1000))
             setRotationY(prev => prev + (e.deltaY / 1000))
         }}>
-            <ambientLight />
-            <pointLight position={[10, 10, 10]} />
-            <Box position={[-1, 0, 0]} rotationX={rotationX} rotationY={rotationY}/>
-            <Box position={[1, 0, 0]} rotationX={rotationX} rotationY={rotationY}/>
+
+            <ambientLight/>
+            <pointLight position={[10, 10, 10]}/>
+            <Box position={[2, 0, 0]} rotationX={rotationX} rotationY={rotationY}/>
+            <Wagon position={[-2, -1, 0]} rotationX={rotationX} rotationY={rotationY}/>
+            {/*<Box position={[1, 0, 0]} rotationX={rotationX} rotationY={rotationY}/>*/}
+
         </Canvas>
     )
 }
