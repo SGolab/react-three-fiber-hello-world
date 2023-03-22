@@ -8,23 +8,25 @@ function Box({position, rotation}) {
     const [active, setActive] = useState(false)
 
     return (
-        <mesh
-            position={position}
+        <>
+            <mesh
+                position={position}
 
-            ref={mesh}
+                ref={mesh}
 
-            rotation-x={rotation.y}
-            rotation-y={rotation.x}
+                rotation-x={rotation.y}
+                rotation-y={rotation.x}
 
-            scale={active ? 2 : 1}
+                scale={active ? 2 : 1}
 
-            onClick={(event) => setActive(!active)}
+                onClick={() => setActive(!active)}
 
-            onPointerOver={(event) => setHover(true)}
-            onPointerOut={(event) => setHover(false)}>
-            <boxGeometry args={[1, 1, 1]}/>
-            <meshStandardMaterial color={hovered ? 'hotpink' : 'orange'}/>
-        </mesh>
+                onPointerOver={() => setHover(true)}
+                onPointerOut={() => setHover(false)}>
+                <boxGeometry args={[1, 1, 1]}/>
+                <meshStandardMaterial color={hovered ? 'hotpink' : 'orange'}/>
+            </mesh>
+        </>
     )
 }
 

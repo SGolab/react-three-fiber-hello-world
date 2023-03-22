@@ -1,11 +1,11 @@
 import {useLoader} from '@react-three/fiber'
 import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader'
-import {useState} from "react";
+import React, {useState} from "react";
 import HoverLabel from "./HoverLabel";
 
-function Wagon({position, rotation}) {
+function Microphone({position, rotation}) {
 
-    const gltf = useLoader(GLTFLoader, '/stylized_wagon/wagon.gltf')
+    const gltf = useLoader(GLTFLoader, 'microphone_gxl_066_bafhcteks/scene.gltf')
 
     const [hovered, setHover] = useState(false)
 
@@ -16,16 +16,15 @@ function Wagon({position, rotation}) {
                        rotation-x={rotation.y}
                        rotation-y={rotation.x}
 
-                       scale={hovered ? 1.2 : 1}
+                       scale={hovered ? 1.1 : 1}
 
                        onPointerOver={() => setHover(true)}
                        onPointerOut={() => setHover(false)}
             />
 
-            {hovered && <HoverLabel text={'WAGON'} position={position}/>}
-
+            {hovered && <HoverLabel text={'MICROPHONE'} position={position}/>}
         </>
     )
 }
 
-export default Wagon
+export default Microphone

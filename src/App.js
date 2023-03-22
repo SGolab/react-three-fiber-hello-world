@@ -1,38 +1,59 @@
-import Box from "./Box";
 import {Canvas} from "@react-three/fiber";
 import React, {useState} from "react";
 import Wagon from "./Wagon";
-import LightBulb from "./LightBulb";
-import LightPositionInputs from "./LightPositionInputs";
+import CameraControls from "./CameraControls";
+import Background from "./Background";
+import Lighting from "./lighting/Lighting";
+import {Vector2} from "three";
+import Microphone from "./Microphone";
 
 function App() {
 
-    const [rotation, setRotation] = useState({x: 0, y: 0})
-    // const [rotationX, setRotationX] = useState(0);
-    // const [rotationY, setRotationY] = useState(0);
+    return (
+        <>
+            <Canvas>
 
-    const [lightPosition, setLightPosition] = useState([0, 0, 0]);
+                <CameraControls/>
+                <Background/>
+                <Lighting/>
+
+                <RotatingObjectGroup/>
+
+            </Canvas>
+        </>
+    )
+}
+
+function RotatingObjectGroup() {
+
+    const [rotation, setRotation] = useState({x: 0, y: 0})
+
+    const handleOnWheel = function (e) {
+        setRotation(prev => {
+            return {
+                x: prev.x + (e.deltaX / 1000),
+                y: prev.y + (e.deltaY / 1000)
+            }
+        })
+    }
 
     return (
         <>
-            <Canvas onWheel={(e) => {
-                setRotation(prev => {
-                    return {
-                        x: prev.x + (e.deltaX / 1000),
-                        y: prev.y + (e.deltaY / 1000)
-                    }
-                })
-            }}>
+            <mesh onWheel={e => handleOnWheel(e)}>
+                <shapeGeometry>
+                    <shape points={[
+                        new Vector2(-1, -1),
+                        new Vector2(-1, 1),
+                        new Vector2(1, 1),
+                        new Vector2(1, -1)]}
+                    />
+                </shapeGeometry>
+                <meshBasicMaterial color={0xCC0000}/>
+            </mesh>
 
-                <ambientLight intensity={0.5}/>
-                <LightBulb position={lightPosition}/>
-
-                <Box position={[2, 0, 0]} rotation={rotation}/>
-                <Wagon position={[-2, -1, 0]} rotation={rotation}/>
-
-            </Canvas>
-
-            <LightPositionInputs lightPosition={lightPosition} setLightPosition={setLightPosition}/>
+            {/*<Box position={[2, 0, 0]} rotation={rotation}/>*/}
+            <Microphone position={[2, 0, 0]} rotation={rotation}/>
+            <Wagon position={[-2, 0, 0]} rotation={rotation}/>
         </>
     )
 }
