@@ -1,34 +1,28 @@
 import {useThree} from "@react-three/fiber";
-import {OrbitControls, FlyControls, Html} from '@react-three/drei'
-import {useState} from "react";
-
-// import { FlyControls } from 'three/addons/controls/FlyControls.js';
-
+import {OrbitControls, FlyControls, Html, CameraShake} from '@react-three/drei'
+import React, {useRef, useState} from "react";
 
 function CameraControls() {
     const {camera, gl: {domElement}} = useThree();
-    const [isFly, setIsFly] = useState(false);
+
+    const cameraShakeArgs = {
+        maxPitch: 0.05,
+        maxRoll: 0.05,
+        maxYaw: 0.05,
+        pitchFrequency: 0.1,
+        rollFrequency: 0.1,
+        yawFrequency: 0.1,
+    }
 
     return (
         <>
-            {isFly &&
-                <FlyControls
-                    args={[camera, domElement]}
-                    dragToLook={true}
-                    rollSpeed={0.5}/>
-            }
 
-            {!isFly &&
-                <OrbitControls
-                args={[camera, domElement]}
-                enableZoom={false}/>
-            }}
+            <CameraShake {...cameraShakeArgs}/>
 
-            <Html position={[0, 2, 0]}>
-                <button onClick={() => setIsFly(prev => !prev)}>
-                    CAMERA
-                </button>
-            </Html>
+            <OrbitControls
+                makeDefault
+                enableZoom={false}
+            />
         </>
     )
 }
