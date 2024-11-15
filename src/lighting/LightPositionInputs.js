@@ -18,7 +18,7 @@ function LightPositionInputs({lightPosition, setLightPosition}) {
     const inputConfig = {
         min: "-3",
         max: "3",
-        step: "0.01"
+        step: "0.5"
     }
 
     return (

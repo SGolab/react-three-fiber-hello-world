@@ -1,59 +1,21 @@
-import {Canvas} from "@react-three/fiber";
-import React, {useState} from "react";
-import Wagon from "./Wagon";
-import CameraControls from "./CameraControls";
-import Background from "./Background";
-import Lighting from "./lighting/Lighting";
-import {Vector2} from "three";
-import Microphone from "./Microphone";
+import Scene from "./Scene";
+import Overlay from "./Overlay";
+import {Suspense, useState} from "react";
+import LoadingScreen from "./LoadingScreen";
 
 function App() {
 
-    return (
-        <>
-            <Canvas>
-
-                <CameraControls/>
-                <Background/>
-                <Lighting/>
-
-                <RotatingObjectGroup/>
-
-            </Canvas>
-        </>
-    )
-}
-
-function RotatingObjectGroup() {
-
-    const [rotation, setRotation] = useState({x: 0, y: 0})
-
-    const handleOnWheel = function (e) {
-        setRotation(prev => {
-            return {
-                x: prev.x + (e.deltaX / 1000),
-                y: prev.y + (e.deltaY / 1000)
-            }
-        })
-    }
+    const [lightPosition, setLightPosition] = useState([0, 0, 0]);
 
     return (
         <>
-            <mesh onWheel={e => handleOnWheel(e)}>
-                <shapeGeometry>
-                    <shape points={[
-                        new Vector2(-1, -1),
-                        new Vector2(-1, 1),
-                        new Vector2(1, 1),
-                        new Vector2(1, -1)]}
-                    />
-                </shapeGeometry>
-                <meshBasicMaterial color={0xCC0000}/>
-            </mesh>
+            <Suspense fallback={<LoadingScreen/>}>
+                <Overlay lightPosition={lightPosition} setLightPosition={setLightPosition}/>
 
-            {/*<Box position={[2, 0, 0]} rotation={rotation}/>*/}
-            <Microphone position={[2, 0, 0]} rotation={rotation}/>
-            <Wagon position={[-2, 0, 0]} rotation={rotation}/>
+                <Scene lightPosition={lightPosition}/>
+                {/*/!*<FadeIn/>*!/ https://codesandbox.io/s/2ycs3?file=/src/layout/styles.js:55-131*/}
+            </Suspense>
+
         </>
     )
 }
